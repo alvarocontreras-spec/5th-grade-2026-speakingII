@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ORAL TASK II - CSI Assessment</title>
+    <title>EVALUACIÓN ORAL II - CSI Assessment</title>
     <style>
         :root {
             --oxford-blue: #002147;
@@ -105,9 +105,14 @@
             transition: 0.3s;
         }
 
+        button:disabled {
+            background-color: #cbd5e1 !important;
+            cursor: not-allowed;
+        }
+
         .btn-start { background: var(--oxford-blue); color: white; }
         .btn-next { background: var(--oxford-gold); color: white; display: none; }
-        .btn-finish { background: #1e293b; color: white; display: none; }
+        .btn-finish { background: #1e293b; color: white; display: display: none; }
         .btn-download { background: var(--classroom-green); color: white; margin-top: 10px; }
         .btn-drive { background: var(--drive-blue); color: white; }
 
@@ -119,28 +124,28 @@
 
 <div class="container">
     <div class="card no-print" id="setupUI">
-        <div class="header-logo">ORAL TASK II</div>
+        <div class="header-logo">EVALUACIÓN ORAL II</div>
         
         <div class="student-inputs">
             <div>
-                <label>1. Select your Class:</label>
+                <label>1. Selecciona tu Curso:</label>
                 <select id="sClass" onchange="updateStudentList()">
-                    <option value="">-- Choose Class --</option>
-                    <option value="5thA">5th A</option>
-                    <option value="5thB">5th B</option>
-                    <option value="5thC">5th C</option>
+                    <option value="">-- Elige tu Curso --</option>
+                    <option value="5thA">5° Año A</option>
+                    <option value="5thB">5° Año B</option>
+                    <option value="5thC">5° Año C</option>
                 </select>
             </div>
             <div>
-                <label>2. Select your Name:</label>
+                <label>2. Selecciona tu Nombre:</label>
                 <select id="sName" disabled>
-                    <option value="">-- Select Class First --</option>
+                    <option value="">-- Selecciona Primero tu Curso --</option>
                 </select>
             </div>
         </div>
 
         <div class="prep-box" id="prepBox">
-            <h3>📖 Preparation (Questions):</h3>
+            <h3>📖 Preguntas de Preparación:</h3>
             <ol>
                 <li>Name & Age?</li>
                 <li>Wake up time?</li>
@@ -157,46 +162,52 @@
         </div>
 
         <div class="question-display" id="qDisplay" style="display: none;">
-            <div id="qNumber">RECORDING...</div>
+            <div id="qNumber">GRABANDO AUDIO...</div>
             <p id="qText"></p>
         </div>
 
         <div class="timer-box" id="timer">00:00</div>
         
-        <button id="startBtn" class="btn-start" onclick="initTest()">🎙️ Start Assessment</button>
-        <button id="nextBtn" class="btn-next" onclick="nextQuestion()">Next Question ➡️</button>
-        <button id="finishBtn" class="btn-finish" onclick="stopAndFinish()">🏁 Finish & Review</button>
+        <button id="startBtn" class="btn-start" onclick="initTest()">🎙️ Iniciar Evaluación</button>
+        <button id="nextBtn" class="btn-next" onclick="nextQuestion()">Siguiente Pregunta ➡️</button>
+        <button id="finishBtn" class="btn-finish" onclick="stopAndFinish()">🏁 Terminar y Revisar</button>
     </div>
 
     <div id="reportArea" class="card" style="display:none;">
         <div id="submissionControls">
-            <h2 style="color: var(--oxford-blue); margin-top: 0;">Evaluation Report</h2>
-            <p style="text-align: left;"><strong>Student:</strong> <span id="repName"></span></p>
+            <h2 style="color: var(--oxford-blue); margin-top: 0;">Reporte de Evaluación</h2>
+            <p style="text-align: left;"><strong>Estudiante:</strong> <span id="repName"></span></p>
             
             <div style="background: #f8fafc; border: 2px dashed #cbd5e1; padding: 20px; border-radius: 12px; margin: 20px 0;">
-                <p style="color: var(--oxford-blue); font-weight: bold; margin-top:0;">🎧 Listen and Download</p>
+                <p style="color: var(--oxford-blue); font-weight: bold; margin-top:0;">🎧 Escucha tu grabación antes de enviarla</p>
                 <audio id="finalAudio" controls style="width: 100%; margin-bottom: 15px;"></audio>
                 
-                <button id="downloadBtn" class="btn-download" onclick="downloadAudio()">📥 Download File for Classroom</button>
-                <p style="font-size: 0.8rem; color: #64748b;">After downloading, upload this file to Google Classroom.</p>
+                <button id="downloadBtn" class="btn-download" onclick="downloadAudio()">📥 Descargar Archivo para Classroom</button>
+                <p style="font-size: 0.9rem; color: #b91c1c; font-weight: bold; margin-top: 10px;">
+                    ⚠️ INSTRUCCIONES IMPORTANTES PARA EL ESTUDIANTE:<br>
+                    1. Haz clic en el botón verde de arriba para descargar tu archivo de audio (.mp3).<br>
+                    2. Ve a tu cuenta de Google Classroom en la tarea correspondiente.<br>
+                    3. Adjunta el archivo que acabas de descargar y presiona "Entregar".
+                </p>
             </div>
 
             <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
             
-            <button id="driveBtn" class="btn-drive" onclick="uploadToDrive()">Optional: Send to Teacher via Drive</button>
+            <button id="driveBtn" class="btn-drive" onclick="uploadToDrive()">Opcional: Enviar copia al Profesor vía Drive</button>
             <div id="status" style="font-weight: bold; margin-top: 10px;"></div>
         </div>
 
         <div id="finalSuccessMessage">
             <div class="icon-check">✓</div>
-            <h2 style="color: var(--oxford-blue);">TASK COMPLETED</h2>
-            <p>Don't forget to attach your file in Classroom!</p>
-            <button style="background: #64748b; color:white; width: auto; padding: 12px 30px; border-radius: 10px; border: none; font-weight: bold;" onclick="location.reload()">Start New Session</button>
+            <h2 style="color: var(--oxford-blue);">TAREA COMPLETADA</h2>
+            <p style="font-size: 1.1rem;">¡Excelente trabajo! No olvides adjuntar tu archivo descargado en Classroom para que el profesor pueda calificarlo.</p>
+            <button style="background: #64748b; color:white; width: auto; padding: 12px 30px; border-radius: 10px; border: none; font-weight: bold;" onclick="location.reload()">Iniciar Nueva Sesión</button>
         </div>
     </div>
 </div>
 
 <script>
+    // Coloca tu URL web desplegada de Google Apps Script dentro de las comillas si usas el envío a Drive
     const SCRIPT_URL = "TU_URL_AQUI"; 
 
     const students = {
@@ -225,7 +236,7 @@
         const classSelect = document.getElementById('sClass');
         const nameSelect = document.getElementById('sName');
         const selectedClass = classSelect.value;
-        nameSelect.innerHTML = '<option value="">-- Select your Name --</option>';
+        nameSelect.innerHTML = '<option value="">-- Selecciona tu Nombre --</option>';
         if (selectedClass) {
             students[selectedClass].forEach(name => {
                 const opt = document.createElement('option');
@@ -237,34 +248,48 @@
     }
 
     async function initTest() {
-        if(!document.getElementById('sName').value) return alert("Select your name!");
+        if(!document.getElementById('sName').value) return alert("¡Por favor, selecciona tu nombre antes de empezar!");
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            mediaRecorder = new MediaRecorder(stream);
+            
+            // Verificación de compatibilidad de formatos en dispositivos móviles/Macs
+            let options = { mimeType: 'audio/webm' };
+            if (!MediaRecorder.isTypeSupported('audio/webm')) {
+                options = { mimeType: 'audio/ogg' };
+                if (!MediaRecorder.isTypeSupported('audio/ogg')) {
+                    options = {}; // Fallback automático del navegador
+                }
+            }
+
+            mediaRecorder = new MediaRecorder(stream, options);
             chunks = [];
-            mediaRecorder.ondataavailable = e => chunks.push(e.data);
+            mediaRecorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
             mediaRecorder.onstop = () => {
-                audioBlob = new Blob(chunks, { type: 'audio/mpeg' });
+                // Generamos el blob contenedor nativo
+                audioBlob = new Blob(chunks, { type: mediaRecorder.mimeType || 'audio/wav' });
                 document.getElementById('finalAudio').src = URL.createObjectURL(audioBlob);
             };
+            
             mediaRecorder.start();
             document.body.classList.add('recording');
             document.getElementById('prepBox').style.display = 'none';
             document.getElementById('qDisplay').style.display = 'flex';
+            
             timerInt = setInterval(() => {
                 seconds++;
                 let m = Math.floor(seconds/60).toString().padStart(2,'0'), s = (seconds%60).toString().padStart(2,'0');
                 document.getElementById('timer').textContent = `${m}:${s}`;
             }, 1000);
+            
             document.getElementById('startBtn').style.display = 'none';
             document.getElementById('nextBtn').style.display = 'block';
             nextQuestion();
-        } catch (err) { alert("Mic error!"); }
+        } catch (err) { alert("¡Error al acceder al micrófono! Por favor dale permisos a la página."); }
     }
 
     function nextQuestion() {
         if(currentIdx < questions.length) {
-            document.getElementById('qNumber').textContent = `QUESTION ${currentIdx + 1} OF ${questions.length}`;
+            document.getElementById('qNumber').textContent = `PREGUNTA ${currentIdx + 1} DE ${questions.length}`;
             document.getElementById('qText').textContent = questions[currentIdx++];
             if(currentIdx === questions.length) {
                 document.getElementById('nextBtn').style.display = 'none';
@@ -282,10 +307,10 @@
         if(mediaRecorder.stream) mediaRecorder.stream.getTracks().forEach(t => t.stop());
     }
 
-    // FUNCIÓN DE DESCARGA LOCAL
     function downloadAudio() {
         const url = URL.createObjectURL(audioBlob);
         const a = document.createElement('a');
+        // Obliga al navegador a descargarlo en el formato estándar solicitado
         const fileName = `${document.getElementById('sClass').value}_${document.getElementById('sName').value}.mp3`;
         a.href = url;
         a.download = fileName;
@@ -295,25 +320,37 @@
     }
 
     async function uploadToDrive() {
+        if(SCRIPT_URL === "TU_URL_AQUI") {
+            return alert("Falta configurar la URL del servidor del profesor.");
+        }
+        
         const driveBtn = document.getElementById('driveBtn');
         driveBtn.disabled = true;
-        document.getElementById('status').textContent = "⏳ Sending to teacher...";
+        document.getElementById('status').textContent = "⏳ Enviando copia al profesor...";
+        
         const reader = new FileReader();
         reader.readAsDataURL(audioBlob);
         reader.onloadend = async () => {
             const base64data = reader.result.split(',')[1];
-            fetch(SCRIPT_URL, {
-                method: "POST",
-                mode: "no-cors",
-                body: JSON.stringify({
-                    base64: base64data,
-                    filename: `${document.getElementById('sClass').value}_${document.getElementById('sName').value}.mp3`
-                })
-            });
-            setTimeout(() => {
-                document.getElementById('submissionControls').style.display = 'none';
-                document.getElementById('finalSuccessMessage').style.display = 'block';
-            }, 2000);
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        base64: base64data,
+                        filename: `${document.getElementById('sClass').value}_${document.getElementById('sName').value}.mp3`
+                    })
+                });
+                
+                setTimeout(() => {
+                    document.getElementById('submissionControls').style.display = 'none';
+                    document.getElementById('finalSuccessMessage').style.display = 'block';
+                }, 2000);
+            } catch(e) {
+                document.getElementById('status').textContent = "❌ Error al subir. Por favor usa el botón verde de descarga local.";
+                driveBtn.disabled = false;
+            }
         };
     }
 </script>
