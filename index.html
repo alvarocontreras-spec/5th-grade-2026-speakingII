@@ -10,7 +10,6 @@
             --oxford-gold: #F39200;
             --soft-bg: #f4f7f9;
             --success: #10b981;
-            --drive-blue: #4285F4;
             --danger: #ef4444;
             --classroom-green: #3cba54;
         }
@@ -105,16 +104,10 @@
             transition: 0.3s;
         }
 
-        button:disabled {
-            background-color: #cbd5e1 !important;
-            cursor: not-allowed;
-        }
-
         .btn-start { background: var(--oxford-blue); color: white; }
         .btn-next { background: var(--oxford-gold); color: white; display: none; }
-        .btn-finish { background: #1e293b; color: white; display: display: none; }
+        .btn-finish { background: #1e293b; color: white; display: none; }
         .btn-download { background: var(--classroom-green); color: white; margin-top: 10px; }
-        .btn-drive { background: var(--drive-blue); color: white; }
 
         #finalSuccessMessage { display: none; padding: 20px; text-align: center; }
         .icon-check { font-size: 5rem; color: var(--success); margin-bottom: 15px; }
@@ -179,37 +172,29 @@
             <p style="text-align: left;"><strong>Estudiante:</strong> <span id="repName"></span></p>
             
             <div style="background: #f8fafc; border: 2px dashed #cbd5e1; padding: 20px; border-radius: 12px; margin: 20px 0;">
-                <p style="color: var(--oxford-blue); font-weight: bold; margin-top:0;">🎧 Escucha tu grabación antes de enviarla</p>
+                <p style="color: var(--oxford-blue); font-weight: bold; margin-top:0;">🎧 Escucha tu grabación antes de descargarla</p>
                 <audio id="finalAudio" controls style="width: 100%; margin-bottom: 15px;"></audio>
                 
                 <button id="downloadBtn" class="btn-download" onclick="downloadAudio()">📥 Descargar Archivo para Classroom</button>
-                <p style="font-size: 0.9rem; color: #b91c1c; font-weight: bold; margin-top: 10px;">
-                    ⚠️ INSTRUCCIONES IMPORTANTES PARA EL ESTUDIANTE:<br>
-                    1. Haz clic en el botón verde de arriba para descargar tu archivo de audio (.mp3).<br>
-                    2. Ve a tu cuenta de Google Classroom en la tarea correspondiente.<br>
-                    3. Adjunta el archivo que acabas de descargar y presiona "Entregar".
-                </p>
+                
+                <div style="text-align: left; background: #fff5f5; border: 1px solid #fecaca; padding: 15px; border-radius: 10px; margin-top: 15px;">
+                    <p style="font-size: 0.95rem; color: #b91c1c; font-weight: bold; margin: 0 0 8px 0;">
+                        ⚠️ PASOS PARA ENTREGAR TU TAREA:
+                    </p>
+                    <ol style="font-size: 0.88rem; color: #475569; margin: 0; padding-left: 20px; line-height: 1.5;">
+                        <li>Haz clic en el botón verde de arriba para guardar tu audio <b>(.mp3)</b>.</li>
+                        <li>Abre tu cuenta de <b>Google Classroom</b> e ingresa a esta tarea.</li>
+                        <li>Presiona en <b>"Añadir o crear"</b>, selecciona el archivo descargado y luego haz clic en <b>"Entregar"</b>.</li>
+                    </ol>
+                </div>
             </div>
-
-            <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
             
-            <button id="driveBtn" class="btn-drive" onclick="uploadToDrive()">Opcional: Enviar copia al Profesor vía Drive</button>
-            <div id="status" style="font-weight: bold; margin-top: 10px;"></div>
-        </div>
-
-        <div id="finalSuccessMessage">
-            <div class="icon-check">✓</div>
-            <h2 style="color: var(--oxford-blue);">TAREA COMPLETADA</h2>
-            <p style="font-size: 1.1rem;">¡Excelente trabajo! No olvides adjuntar tu archivo descargado en Classroom para que el profesor pueda calificarlo.</p>
-            <button style="background: #64748b; color:white; width: auto; padding: 12px 30px; border-radius: 10px; border: none; font-weight: bold;" onclick="location.reload()">Iniciar Nueva Sesión</button>
+            <button style="background: #64748b; color:white; width: auto; padding: 12px 30px; border-radius: 10px; border: none; font-weight: bold; margin-top: 10px;" onclick="location.reload()">Reiniciar / Grabar de nuevo</button>
         </div>
     </div>
 </div>
 
 <script>
-    // Coloca tu URL web desplegada de Google Apps Script dentro de las comillas si usas el envío a Drive
-    const SCRIPT_URL = "TU_URL_AQUI"; 
-
     const students = {
         "5thA": ["ARANEDA SEPÚLVEDA MATÍAS SANTIAGO", "AYALA OLIVARES MÁXIMO ALONSO", "CAMPUSANO PÉREZ ISIDORA MONTSERRAT", "CANESSA VEGA BERNARDO FRANCISCO", "CARRASCO RAMÍREZ JAVIERA PAZ", "CHAMORRO SAN MARTÍN SEBASTIÁN FRANCISCO", "CORREA LEAL SANTIAGO LEÓN", "CUKIC LUENGO BRUNO EDUARDO", "ESPINOZA OLIVARES LUCAS ALEJANDRO", "FERNÁNDEZ ESCOBAR MARTÍN FELIPE", "FERNÁNDEZ RODRIGUEZ FERNANDA NICOLE", "GARNIER VELÁSQUEZ MAXIMILIANO LORENZO", "GARZON MACUER AMANDA SOFÍA", "GONZÁLEZ ARRIAGADA SOFÍA ISIDORA", "IBARRA BARRAZA DOMINGA PAZ", "JARAMILLO CANALES JULIETA ANTONIA", "JIMÉNEZ MONSALVES FERNANDA PAZ", "MACUADA GONZÁLEZ TOMÁS ALONSO", "MEZA MISTO FRANCISCA IGNACIA", "MUÑOZ OLIVOS SOFÍA ANTONIA", "NECULQUEO MURA JAVIER MATIAS", "OSORIO MUÑOZ LUCIANO", "PARRA ALIAGA AGUSTÍN CLEMENTE LEÓN", "RIQUELME CONTRERAS JULIETA ISADORA", "SALINAS SAAVEDRA EMILIANO IGNACIO", "SÁNCHEZ MORAGA NICOLÁS ARTURO", "SEISDEDOS CARVAJAL ANGELA GUADALUPE", "SEREY VALDES RENATO CLEMENTE", "SEYMOUR REYES TRINIDAD EMILIA", "VALLEJOS NAVARRO JOSEFA AGUSTINA", "VELOSO MUÑOZ ISABELLA AMARAL", "VERGARA FUENZALIDA JOAQUÍN IGNACIO", "VERGARA MARÍN DAMIÁN ALONSO", "VINES ZÚÑIGA DAMIÁN ALBERTO", "ZURITA BUSTOS ANTONIA INÉS"],
         "5thB": ["ACUÑA ALARCÓN DOMINGO", "AGUILAR MENARES VALENTÍN IGNACIO", "ALLENDE GARAY ALFONSO ERNESTO", "ARA CAMPUSANO VALENTINA ANTONIA", "ARAYA ESCALONA JOSE MANUEL", "ÁVILA RAMÍREZ AMANDA", "BOBADILLA PONCE VICENTE IGNACIO", "CASTILLO CARVAJAL TRINIDAD PAZ", "CONTRERAS RAMOS AMANDA BELÉN", "DÍAZ CORTÉS NICOLÁS IGNACIO", "DURÁN FREZ FLORENCIA CATALINA", "FARÍAS VALENZUELA REBECCA ESPERANZA", "GARRIDO DONOSO AMANDA", "GÓMEZ BURGOS ROSARIO BELÉN", "GONZÁLEZ ESPINOZA ARANTZA MICAELA", "HOLZMANN CÁRCAMO ANTONIA IGNACIA", "LAZO DÍAZ RENATA ANDREA", "LÓPEZ OJEDA AGUSTÍN SANTIAGO", "MENESES MADARIAGA GASPAR BAUTISTA", "MORAGA MARTINEZ VICTORIA ESPERANZA", "MOSQUEIRA VALDIVIA CAMILO ANDRÉS", "ORMEÑO LACHR PEDRO JOAQUIN", "OSORNO ARRIAGADA AMANDA MARIANNE", "PARRA PIMENTEL CONSUELO EMILIA", "REYES MARCHANT EMILIANO BAUTISTA", "RIVERA SAAVEDRA DIEGO ANDRÉS", "ROMÁN PEÑA GUSTAVO EMILIO", "RUIZ GARCÍA SANTIAGO ALONSO", "RUZ REYES MATÍAS ALEJANDRO", "SARRIA ASTUDILLO EVA MAGDALENA", "TRUJILLO BURGOS SANTIAGO ALONSO", "URQUEJO CHACANO RAFAELA", "VALENZUELA GONZÁLEZ JOSÉ MIGUEL", "VÁSQUEZ TAPIA SOFÍA ANTONIA", "VILLANUEVA SIMON GASPAR ALBERTO", "ZAMORA TORRES FACUNDO AGUSTÍN"],
@@ -252,12 +237,11 @@
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
             
-            // Verificación de compatibilidad de formatos en dispositivos móviles/Macs
             let options = { mimeType: 'audio/webm' };
             if (!MediaRecorder.isTypeSupported('audio/webm')) {
                 options = { mimeType: 'audio/ogg' };
                 if (!MediaRecorder.isTypeSupported('audio/ogg')) {
-                    options = {}; // Fallback automático del navegador
+                    options = {};
                 }
             }
 
@@ -265,7 +249,6 @@
             chunks = [];
             mediaRecorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
             mediaRecorder.onstop = () => {
-                // Generamos el blob contenedor nativo
                 audioBlob = new Blob(chunks, { type: mediaRecorder.mimeType || 'audio/wav' });
                 document.getElementById('finalAudio').src = URL.createObjectURL(audioBlob);
             };
@@ -284,7 +267,7 @@
             document.getElementById('startBtn').style.display = 'none';
             document.getElementById('nextBtn').style.display = 'block';
             nextQuestion();
-        } catch (err) { alert("¡Error al acceder al micrófono! Por favor dale permisos a la página."); }
+        } catch (err) { alert("¡Error al acceder al micrófono! Por favor dale permisos de audio a la página."); }
     }
 
     function nextQuestion() {
@@ -310,48 +293,12 @@
     function downloadAudio() {
         const url = URL.createObjectURL(audioBlob);
         const a = document.createElement('a');
-        // Obliga al navegador a descargarlo en el formato estándar solicitado
         const fileName = `${document.getElementById('sClass').value}_${document.getElementById('sName').value}.mp3`;
         a.href = url;
         a.download = fileName;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-    }
-
-    async function uploadToDrive() {
-        if(SCRIPT_URL === "TU_URL_AQUI") {
-            return alert("Falta configurar la URL del servidor del profesor.");
-        }
-        
-        const driveBtn = document.getElementById('driveBtn');
-        driveBtn.disabled = true;
-        document.getElementById('status').textContent = "⏳ Enviando copia al profesor...";
-        
-        const reader = new FileReader();
-        reader.readAsDataURL(audioBlob);
-        reader.onloadend = async () => {
-            const base64data = reader.result.split(',')[1];
-            try {
-                await fetch(SCRIPT_URL, {
-                    method: "POST",
-                    mode: "no-cors",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        base64: base64data,
-                        filename: `${document.getElementById('sClass').value}_${document.getElementById('sName').value}.mp3`
-                    })
-                });
-                
-                setTimeout(() => {
-                    document.getElementById('submissionControls').style.display = 'none';
-                    document.getElementById('finalSuccessMessage').style.display = 'block';
-                }, 2000);
-            } catch(e) {
-                document.getElementById('status').textContent = "❌ Error al subir. Por favor usa el botón verde de descarga local.";
-                driveBtn.disabled = false;
-            }
-        };
     }
 </script>
 </body>
